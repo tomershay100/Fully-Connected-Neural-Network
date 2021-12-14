@@ -90,7 +90,7 @@ parser.add_argument("-test_x", dest="test_x_path", default="test_x", help="test_
 parser.add_argument("-test_y", dest="test_y_path", default="test_y", help="test_y file path")
 parser.add_argument("-lr", dest="learning_rate", default="0.1", help="Learning Rate")
 parser.add_argument("-e", dest="epochs", default="20", help="Epochs")
-parser.add_argument("-size", dest="hidden_layer_size", help="Hidden Layer Size")
+parser.add_argument("-size", dest="hidden_layer_size", default="128", help="Hidden Layer Size")
 
 args = parser.parse_args()
 
