@@ -55,7 +55,15 @@ Note that for using the dataset given in this repo, you need to unzip the datase
 	```
 	$ git clone https://github.com/tomershay100/Fully-Connected-Neural-Network.git
 	```	
-3. Run the ```neural_net.py``` file:
+3. Enter the project folder:
+	```
+	cd Fully-Connected-Neural-Network
+	```
+4. unzip the dataset.zip:
+	```
+	unzip dataset.zip
+	```
+5. Run the ```neural_net.py``` file with your favorite arguments:
 	```
 	$ python3 neural_net.py -lr 0.03 -e 10 -size 100
 	 ```
