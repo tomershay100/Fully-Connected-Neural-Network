@@ -1,6 +1,6 @@
 # Tomer Shay
-import sys
 import numpy as np
+import argparse
 from scipy.special import softmax
 from matplotlib import pyplot as plt
 
@@ -42,9 +42,9 @@ def back_prop(input_layer, label, all_layers, all_weights, all_biases, lr):
     labels_arr = one_hot(label)
     output_layer_error = output_layer - labels_arr
 
-    hidden_layer_magnetiude_error = np.dot(output_weights.T, output_layer_error)
+    hidden_layer_magnitude_error = np.dot(output_weights.T, output_layer_error)
     hidden_layer_gradient_error = sigmoid_derivative(hidden_layer_before_sigmoid)
-    hidden_layer_error = hidden_layer_magnetiude_error * hidden_layer_gradient_error
+    hidden_layer_error = hidden_layer_magnitude_error * hidden_layer_gradient_error
 
     new_weights_1 = all_weights[0] - lr * np.dot(hidden_layer_error, np.array([input_layer]))
     new_bias_1 = all_biases[0] - lr * hidden_layer_error
@@ -80,23 +80,27 @@ def check_accuracy(vec_1, vec_2):
     return 100 * count / len(vec_1)
 
 
-if len(sys.argv) < 5:
-    print("not enough arguments!")
-    exit(-1)
-
 # get arguments
-train_x_path = sys.argv[1]
-train_y_path = sys.argv[2]
-test_x_path = sys.argv[3]
-test_y_path = sys.argv[4]
+parser = argparse.ArgumentParser()
+
+# -train_x train_x -train_y train_y -test_x test_x -test_y test_y -lr learning_rate -e epochs -size hidden_layer_size
+parser.add_argument("-train_x", dest="train_x_path", default="train_x", help="train_x file path")
+parser.add_argument("-train_y", dest="train_y_path", default="train_y", help="train_y file path")
+parser.add_argument("-test_x", dest="test_x_path", default="test_x", help="test_x file path")
+parser.add_argument("-test_y", dest="test_y_path", default="test_y", help="test_y file path")
+parser.add_argument("-lr", dest="learning_rate", default="0.1", help="Learning Rate")
+parser.add_argument("-e", dest="epochs", default="20", help="Epochs")
+parser.add_argument("-size", dest="hidden_layer_size", help="Hidden Layer Size")
+
+args = parser.parse_args()
 
 # get data from the files
 print("loading files..")
-train_x = np.loadtxt(train_x_path)
-train_y = np.loadtxt(train_y_path)
+train_x = np.loadtxt(args.train_x_path)
+train_y = np.loadtxt(args.train_y_path)
 train_x /= 255  # normalize train pixels to 0 - 1
-test_x = np.loadtxt(test_x_path)
-test_y = np.loadtxt(test_y_path)
+test_x = np.loadtxt(args.test_x_path)
+test_y = np.loadtxt(args.test_y_path)
 test_x /= 255  # normalize test pixels to 0 - 1
 
 # shuffle train data set
@@ -113,10 +117,10 @@ validate_y = train_y[:(len(train_y) * validate_percentage) // 100]
 train_x = train_x[(len(train_x) * validate_percentage) // 100:]
 train_y = train_y[(len(train_y) * validate_percentage) // 100:]
 
-epochs = 1
-learning_rate = 0.1
+epochs = int(args.epochs)
+learning_rate = float(args.learning_rate)
 input_layer_size = 784
-hidden_layer_size = 128
+hidden_layer_size = int(args.hidden_layer_size)
 output_layer_size = 10
 
 print("init weights and bias..")
@@ -171,7 +175,7 @@ for i in range(epochs):
         best_weights = weights.copy()
         best_bias = biases.copy()
 
-print("================================")
+print("==================================")
 print("learn finished. exporting plot..")
 plt.xlabel("epochs")
 plt.ylabel("accuracy")
@@ -179,9 +183,10 @@ plt.plot(validate_vec, label="validate")
 plt.plot(train_vec, label="train")
 plt.legend()
 plt.savefig('plot.png')
+print("plot.png is ready!")
 
 print("starting predictions on test..")
 test_prediction = make_prediction(test_x, best_weights, best_bias)
 test_accuracy = check_accuracy(test_y, test_prediction)
-print('\n======== TEST ACCURACY =========')
+print('========= TEST ACCURACY ==========')
 print(f'{"{:.2f}".format(test_accuracy)}%')
