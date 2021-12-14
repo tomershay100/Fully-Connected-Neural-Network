@@ -16,7 +16,7 @@ Digit recognition (MNIST dataset) using a fully connected neural network.
 Implementation of a neural network for digit classification, on the MNIST dataset, which takes as an input a ``28*28`` grayscale image (``784`` floating point values of pixels between ``0-255``).
 
 ### Net Structure
-The network has one hidden layer in size 128 (default) and it performs multiple epochs (20 by default) and trains the model by minimizing the Negative Log Likelihood (NLL).
+The network has one hidden layer in size 128 (default) and it performs multiple epochs (20 by default) and trains the model by minimizing the Negative Log Likelihood (NLL) with the ``Sigmoid`` and ``Softmax`` activation functions.
 
 During learning, the network verifies its accuracy on an independent set of data (about ``10%`` of the training set) on which learning is not performed. This group is called a ``validation set``. After all the epochs, the network saves its best condition, the weights that resulted the maximum accuracy on the validation set, to prevent overfitting.
 
@@ -39,6 +39,7 @@ running example:
 	$ python3 neural_net.py -train_x train_x -train_y train_y -test_x test_x -test_y test_y -lr 0.03
 ```
 
+Note that for using the dataset given in this repo, you need to unzip the dataset.zip folder (for example, using 7-zip)
 ## Dependencies
 * [Python 3.6+](https://www.python.org/downloads/)
 * Git
