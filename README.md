@@ -57,11 +57,11 @@ Note that for using the dataset given in this repo, you need to unzip the datase
 	```	
 3. Enter the project folder:
 	```
-	cd Fully-Connected-Neural-Network
+	$ cd Fully-Connected-Neural-Network
 	```
 4. unzip the dataset.zip:
 	```
-	unzip dataset.zip
+	$ unzip dataset.zip
 	```
 5. Run the ```neural_net.py``` file with your favorite arguments:
 	```
