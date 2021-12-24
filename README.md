@@ -1,7 +1,7 @@
 
 
 # # Fully Connected Neural Network
-Digit recognition (MNIST dataset) using a fully connected neural network.
+MLP (fully connected neural network) from scratch using numpy on the MNIST dataset (Digit recognition).
 
 1. [General](#General)
     - [Background](#background)
