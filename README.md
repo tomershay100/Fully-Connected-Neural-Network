@@ -1,6 +1,6 @@
 
 
-# # Fully Connected Neural Network
+# Fully Connected Neural Network
 MLP (fully connected neural network) from scratch using numpy on the MNIST dataset (Digit recognition).
 
 1. [General](#General)
